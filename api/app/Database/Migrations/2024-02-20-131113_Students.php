@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Students extends Migration
+class CreateStudentsTable extends Migration
 {
     public function up()
     {
@@ -24,6 +24,11 @@ class Students extends Migration
                 'constraint' => 100,
                 'unique' => true,
             ],
+            'user_id' => [
+                'type' => 'INT',
+                'constraint' => 5,
+                'unsigned' => true,
+            ],
             'created_at' => [
                 'type'   => 'DATETIME',
                 'null'   => true
@@ -34,6 +39,7 @@ class Students extends Migration
             ]
         ]);
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('user_id', 'user', 'id'); // Adiciona a chave estrangeira
         $this->forge->createTable('students');
     }
 
