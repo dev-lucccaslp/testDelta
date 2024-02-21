@@ -19,6 +19,18 @@ class CreateStudentsTable extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 100,
             ],
+            'city' => [
+                'type' => 'VARCHAR',
+                'constraint' => 100,
+            ],
+            'state' => [
+                'type' => 'VARCHAR',
+                'constraint' => 100,
+            ],
+            'name' => [
+                'type' => 'VARCHAR',
+                'constraint' => 100,
+            ],
             'email' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,
