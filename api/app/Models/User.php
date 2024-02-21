@@ -9,8 +9,7 @@ class User extends Model
     protected $table            = 'user';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $allowedFields    = [];
-
+    protected $allowedFields = ['email', 'password'];
     protected bool $allowEmptyInserts = false;
 
     // Dates

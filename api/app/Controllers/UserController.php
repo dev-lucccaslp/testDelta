@@ -29,56 +29,32 @@ class UserController extends ResourceController
      *
      * @return ResponseInterface
      */
-    public function show($id = null)
-    {
-        //
-    }
 
-    /**
-     * Return a new resource object, with default properties
-     *
-     * @return ResponseInterface
-     */
-    public function new()
-    {
-        //
-    }
-
-    /**
-     * Create a new resource object, from "posted" parameters
-     *
-     * @return ResponseInterface
-     */
     public function create()
     {
-        //
+        $rules = [
+            'email' => ['rules' => 'required|min_length[4]|max_length[255]|valid_email|is_unique[user.email]'],
+            'password' => ['rules' => 'required|min_length[8]|max_length[255]'],
+        ];
+            
+        if($this->validate($rules)){
+            $model = new \App\Models\User();
+            $data = [
+                'email'    => $this->request->getVar('email'),
+                'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT)
+            ];
+            $model->save($data);
+             
+            return $this->respond(['message' => 'Registered Successfully'], 200);
+        } else {
+            $response = [
+                'errors' => $this->validator->getErrors(),
+                'message' => 'Invalid Inputs'
+            ];
+            return $this->fail($response , 409);  
+        }
     }
 
-    /**
-     * Return the editable properties of a resource object
-     *
-     * @return ResponseInterface
-     */
-    public function edit($id = null)
-    {
-        //
-    }
-
-    /**
-     * Add or update a model resource, from "posted" properties
-     *
-     * @return ResponseInterface
-     */
-    public function update($id = null)
-    {
-        //
-    }
-
-    /**
-     * Delete the designated resource object from the model
-     *
-     * @return ResponseInterface
-     */
     public function delete($id = null)
     {
         //

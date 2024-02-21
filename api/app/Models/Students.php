@@ -9,7 +9,7 @@ class Students extends Model
     protected $table            = 'students';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $allowedFields    = [];
+    protected $allowedFields = ['nome', 'email', 'user_id'];
 
     protected bool $allowEmptyInserts = false;
 

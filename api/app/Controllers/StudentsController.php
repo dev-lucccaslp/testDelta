@@ -7,6 +7,8 @@ use CodeIgniter\RESTful\ResourceController;
 
 class StudentsController extends ResourceController
 {
+    protected $modelName = 'App\Models\Students';
+    protected $format = 'json';
     /**
      * Return an array of resource objects, themselves in array format
      *
@@ -14,27 +16,12 @@ class StudentsController extends ResourceController
      */
     public function index()
     {
-        //
-    }
+        $data = [
+            'message' => 'success',
+            'data' => $this->model->findAll()
+        ];
 
-    /**
-     * Return the properties of a resource object
-     *
-     * @return ResponseInterface
-     */
-    public function show($id = null)
-    {
-        //
-    }
-
-    /**
-     * Return a new resource object, with default properties
-     *
-     * @return ResponseInterface
-     */
-    public function new()
-    {
-        //
+        return $this->respond($data, 200);
     }
 
     /**
@@ -42,26 +29,28 @@ class StudentsController extends ResourceController
      *
      * @return ResponseInterface
      */
+
     public function create()
     {
-        //
+        $userId = $this->request->getPost('user_id'); // Supondo que você está passando o ID do usuário através da solicitação
+
+        $name = $this->request->getPost('name');
+        $email = $this->request->getPost('email');
+        
+    
+        // Salva o estudante no banco de dados, vinculando-o ao usuário logado
+        $model = new \App\Models\Students();
+        $data = [
+            'name' => $this->request->getVar('name'),
+            'email' => $this->request->getVar('email'),
+            'user_id' => $this->request->getVar('user_id'),
+        ];
+        $model->insert($data);
+    
+        // Retorna uma resposta de sucesso
+        return $this->respond($data, 200);
     }
 
-    /**
-     * Return the editable properties of a resource object
-     *
-     * @return ResponseInterface
-     */
-    public function edit($id = null)
-    {
-        //
-    }
-
-    /**
-     * Add or update a model resource, from "posted" properties
-     *
-     * @return ResponseInterface
-     */
     public function update($id = null)
     {
         //
