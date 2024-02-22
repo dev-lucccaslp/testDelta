@@ -7,10 +7,10 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
-$routes->get('user', 'UserController::index', ['filter' => 'authFilter']);
-$routes->post('register', 'UserController::create');
+$routes->get('api/user', 'UserController::index', ['filter' => 'authFilter']);
+$routes->post('api/register', 'UserController::create');
 
-$routes->post("login", "LoginController::index");
+$routes->post("api/login", "LoginController::index");
 
-$routes->post("createstudent", "StudentsController::create", ['filter' => 'authFilter']);
-$routes->get("students" , "StudentsController::index", ['filter' => 'authFilter']);
+$routes->post("api/createstudent", "StudentsController::create", ['filter' => 'authFilter']);
+$routes->get("api/students" , "StudentsController::index", ['filter' => 'authFilter']);

@@ -16,6 +16,7 @@ class LoginController extends ResourceController
      */
     public function index()
     {
+        
         $userModel = new \App\Models\User();
   
         $email = $this->request->getVar('email');
