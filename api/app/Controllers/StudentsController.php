@@ -10,14 +10,23 @@ class StudentsController extends ResourceController
     protected $modelName = 'App\Models\Students';
     protected $format = 'json';
 
-    public function index()
+    public function index($user_id = null)
     {
-        $data = [
-            'message' => 'success',
-            'data' => $this->model->findAll()
-        ];
+        $students = $this->model->where('user_id', $user_id)->findAll();
 
-        return $this->respond($data, 200);
+        if ($students) {
+            $data = [
+                'message' => 'success',
+                'data' => $students
+            ];
+            return $this->respond($data, 200);
+        } else {
+            $data = [
+                'message' => 'Não há estudantes cadastrados com este usuário.',
+                'data' => []
+            ];
+            return $this->respond($data, 404);
+        }
     }
 
     public function create()
@@ -40,6 +49,11 @@ class StudentsController extends ResourceController
         ];
         $model->insert($data);
     
+        $studentId = $model->insertID();
+
+        $data['id'] = $studentId;
+
+
         return $this->respond($data, 200);
     }
 
@@ -92,7 +106,6 @@ class StudentsController extends ResourceController
     
     public function delete($id = null)
     {
-        // Verifica se o ID foi fornecido
         if ($id === null) {
             return $this->fail('ID do estudante não fornecido', 400);
         }
