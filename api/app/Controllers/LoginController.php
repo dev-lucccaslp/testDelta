@@ -52,7 +52,9 @@ class LoginController extends ResourceController
         $response = [
             'message' => 'Login Succesful',
             'user_id' => $user['id'],
+            'email' => $user['email'],
             'token' => $token,
+            'type' => 'Bearer',
         ];
          
         return $this->respond($response, 200);

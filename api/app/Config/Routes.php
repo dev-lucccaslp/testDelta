@@ -13,4 +13,8 @@ $routes->post('api/register', 'UserController::create');
 $routes->post("api/login", "LoginController::index");
 
 $routes->post("api/createstudent", "StudentsController::create", ['filter' => 'authFilter']);
+
 $routes->get("api/students" , "StudentsController::index", ['filter' => 'authFilter']);
+$routes->get('api/students/(:num)', 'StudentsController::getById/$1', ['filter' => 'authFilter']);
+$routes->put('api/students/(:num)', 'StudentsController::update/$1', ['filter' => 'authFilter']);
+$routes->delete('api/students/(:num)', 'StudentsController::delete/$1', ['filter' => 'authFilter']);

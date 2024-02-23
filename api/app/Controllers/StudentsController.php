@@ -9,11 +9,7 @@ class StudentsController extends ResourceController
 {
     protected $modelName = 'App\Models\Students';
     protected $format = 'json';
-    /**
-     * Return an array of resource objects, themselves in array format
-     *
-     * @return ResponseInterface
-     */
+
     public function index()
     {
         $data = [
@@ -24,45 +20,91 @@ class StudentsController extends ResourceController
         return $this->respond($data, 200);
     }
 
-    /**
-     * Create a new resource object, from "posted" parameters
-     *
-     * @return ResponseInterface
-     */
-
     public function create()
     {
-        $userId = $this->request->getPost('user_id'); // Supondo que você está passando o ID do usuário através da solicitação
+        $userId = $this->request->getPost('user_id');
 
         $name = $this->request->getPost('name');
         $email = $this->request->getPost('email');
+        $state = $this->request->getPost('state');
+        $city = $this->request->getPost('city');
         
-    
-        // Salva o estudante no banco de dados, vinculando-o ao usuário logado
         $model = new \App\Models\Students();
+
         $data = [
             'name' => $this->request->getVar('name'),
             'email' => $this->request->getVar('email'),
             'user_id' => $this->request->getVar('user_id'),
+            'state' => $this->request->getVar('state'),
+            'city' => $this->request->getVar('city')
         ];
         $model->insert($data);
     
-        // Retorna uma resposta de sucesso
         return $this->respond($data, 200);
     }
 
+    public function getById($id = null)
+    {
+        if ($id === null) {
+            return $this->fail('ID do estudante não fornecido', 400);
+        }
+    
+        $model = new \App\Models\Students();
+    
+        $student = $model->find($id);
+    
+        if ($student === null) {
+            return $this->fail('Estudante não encontrado', 404);
+        }
+        return $this->respond($student, 200);
+    }
+    
     public function update($id = null)
     {
-        //
+        if ($id === null) {
+            return $this->fail('ID do estudante não fornecido', 400);
+        }
+    
+        $data = json_decode($this->request->getBody(), true);
+    
+        $name = $data['name'];
+        $email = $data['email'];
+        $state = $data['state'];
+        $city = $data['city'];
+    
+        $model = new \App\Models\Students();
+    
+        $student = $model->find($id);
+    
+        if ($student === null) {
+            return $this->fail('Estudante não encontrado', 404);
+        }
+    
+        $student['name']  = $name;
+        $student['email'] = $email;
+        $student['state'] = $state;
+        $student['city']  = $city;
+    
+        $model->save($student);
+    
+        return $this->respond($student, 200);
     }
-
-    /**
-     * Delete the designated resource object from the model
-     *
-     * @return ResponseInterface
-     */
+    
     public function delete($id = null)
     {
-        //
+        // Verifica se o ID foi fornecido
+        if ($id === null) {
+            return $this->fail('ID do estudante não fornecido', 400);
+        }
+    
+        $model = new \App\Models\Students();
+        $student = $model->find($id);
+    
+        if ($student === null) {
+            return $this->fail('Estudante não encontrado', 404);
+        }
+        $model->delete($id);
+
+        return $this->respondDeleted($student);
     }
 }
