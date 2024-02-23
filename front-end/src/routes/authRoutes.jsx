@@ -1,13 +1,19 @@
-import { Outlet, Navigate } from "react-router-dom";
-import { useAuthContext } from "../context/useAuthContext";
+import { Navigate, Outlet, useLocation  } from "react-router-dom";
+import { useStorage } from "../hooks/useStorage";
 
 const AuthRoutes = () => {
-  const { userLoged } = useAuthContext();
+  const { getItem } = useStorage();
+  const location = useLocation();
+  const isAuthenticated = getItem('data') && getItem('data').token;
 
-  const isLoggedIn = userLoged(useAuthContext());
-
-  if (!isLoggedIn) {
-    return <Navigate to="/" />;
+  if (isAuthenticated) {
+    if (location.pathname === "/") {
+      return <Navigate to="/dashboard" replace />;
+    }
+  } else {
+    if (location.pathname !== "/") {
+      return <Navigate to="/" replace />;
+    }
   }
 
   return <Outlet />;

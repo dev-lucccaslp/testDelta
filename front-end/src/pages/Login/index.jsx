@@ -14,6 +14,7 @@ import {
 
 import { useAuthContext } from '../../context/useAuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useStorage } from '../../hooks/useStorage';
 
 
 export function Login() {
@@ -23,8 +24,10 @@ export function Login() {
   const [password, setPassword] = useState('');
   const [loginStatus, setLoginStatus] = useState(null);
 
+  const { setItem } = useStorage();
+
   const navigate = useNavigate();
-  const { addData } = useAuthContext();
+  const { addData, data } = useAuthContext();
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -33,11 +36,14 @@ export function Login() {
         email: email,
         password: password,
       });
-  
+
+      setItem('data', response.data)
+
       addData(response.data);
-     
+
       setLoginStatus(true);
-      navigate('/menu', { replace: true });
+      navigate('/dashboard', { replace: true });
+
     } catch (error) {
       console.error(error.message);
       setLoginStatus(false); 
