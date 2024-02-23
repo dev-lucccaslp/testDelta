@@ -9,11 +9,11 @@ export const LoginScreen = styled.div`
 `;
 
 export const LoginFormContainer = styled.div`
-  background-color: ${(props) => props.theme['blue-600']};
+  background-color: ${(props) => props.theme['blue-700']};
   width: 30%;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 10px #000;
 `;
 
 export const Header = styled.div`

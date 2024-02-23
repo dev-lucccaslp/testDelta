@@ -1,5 +1,5 @@
 import axios from 'axios';
-  // `headers` are custom headers to be sent
+
  let headers= {
   'Content-Type': 'application/json', 
   'Access-Control-Allow-Origin': '*',

@@ -1,29 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Menu from "../../components/Menu";
 import Header from "../../components/Header";
 import Grid from "../../components/Grid";
 
 import { DashboardContainer, DashboardContent } from "./style";
+import { ModalAddStudent } from "../../components/ModalAddStudent";
 
 export const Dashboard = () => {
-  // Simulando dados de alunos
-  const students = [
-    { id: 1, name: "John Doe", city: "New York", state: "NY", email: "john@example.com" },
-    { id: 2, name: "Jane Smith", city: "Los Angeles", state: "CA", email: "jane@example.com" },
-    // Adicione mais dados de alunos conforme necessário
-  ];
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const handleAddStudent = () => {
-    // Implemente a lógica para adicionar alunos
-    console.log("Adicionar alunos");
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    
   };
 
   return (
     <DashboardContainer>
       <Menu />
       <DashboardContent>
-        <Header onAddStudent={handleAddStudent} />
-        <Grid students={students} />
+        <Header onAddStudent={openModal} />
+        <ModalAddStudent isOpen={modalIsOpen} onClose={closeModal} />
+        <Grid />
       </DashboardContent>
     </DashboardContainer>
   );

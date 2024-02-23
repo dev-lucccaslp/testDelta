@@ -15,6 +15,7 @@ import {
 import { useAuthContext } from '../../context/useAuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useStorage } from '../../hooks/useStorage';
+import { toast } from 'sonner';
 
 
 export function Login() {
@@ -41,25 +42,48 @@ export function Login() {
 
       addData(response.data);
 
-      setLoginStatus(true);
+      setLoginStatus(false);
       navigate('/dashboard', { replace: true });
 
     } catch (error) {
       console.error(error.message);
-      setLoginStatus(false); 
-      alert('Falha no login. Por favor, tente novamente.');
+      setLoginStatus(true); 
+      toast.error('Falha no login. Por favor, verique email e senha.');
     }
   };
 
-  const handleRegisterSubmit = (email, confirmEmail, password, confirmPassword) => {
+  const handleRegisterSubmit = async (event) => {
+    event.preventDefault(); 
+  
+    const email = event.target[0].value;
+    const confirmEmail = event.target[1].value;
+    const password = event.target[2].value;
+    const confirmPassword = event.target[3].value;
+  
     if (email !== confirmEmail) {
-      alert("O email e o email de confirmação devem ser iguais.");
+      toast.error("O email e o email de confirmação devem ser iguais.");
       return;
     }
-
+  
     if (password !== confirmPassword) {
-      alert("A senha e a senha de confirmação devem ser iguais.");
+      toast.error("A senha e a senha de confirmação devem ser iguais.");
       return;
+    }
+  
+    try {
+      const response = await newApi.post('/register', {
+        email: email,
+        password: password,
+      });
+      console.log(response.data)
+
+      toast.success("Usuário criado com sucesso!")
+      setActive(true)
+    } catch (error) {
+      console.log(error.message)
+      if(error.response.status === 409){
+        toast.error('Este email já foi cadastrado, insira outro')
+      }
     }
   };
 
