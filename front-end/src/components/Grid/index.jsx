@@ -1,24 +1,22 @@
 import React from "react";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
+import { VscOpenPreview } from "react-icons/vsc";
 
 import {
   GridContainer,
   Table,
   EditButton,
-  ExcludeButton
+  ExcludeButton,
+  ViewButton
 } from "./style";
 
-import { useStorage } from "../../hooks/useStorage";
 import { newApi } from "../../services/newApi";
 import { useStudents } from "../../context/StudentsContext"
 import { toast } from "sonner";
 
 const Grid = () => {
-  const { getItem } = useStorage();
-  const data = getItem('data');
-
-  const { studentList, setStudentList } = useStudents();
+  const { studentList, setStudentList, userState: userDads } = useStudents();
 
   console.log('contex:', studentList)
 
@@ -27,16 +25,16 @@ const Grid = () => {
       const userConfirmation = new Promise((resolve, reject) => {
         const confirmed = window.confirm("Tem certeza que deseja excluir este estudante?");
         if (confirmed) {
-          resolve(); 
+          resolve();
         } else {
           reject("Exclusão cancelada pelo usuário"); //
         }
       });
-      
+
       await userConfirmation;
       const response = await newApi.delete(`students/${id}`, {
         headers: {
-          Authorization: `${data.type} ${data.token}`
+          Authorization: `${userDads.type} ${userDads.token}`
         }
       });
       const filterStudentList = studentList.filter((item) => item.id !== id)
@@ -68,10 +66,22 @@ const Grid = () => {
               <td>{student.city}</td>
               <td>{student.state}</td>
               <td>{student.email}</td>
-              <EditButton><FaRegEdit /></EditButton>
-              <ExcludeButton onClick={() => handleDeleteStudent(student.id)}>
-                <FaRegTrashCan />
-              </ExcludeButton>
+              <td>
+                <ViewButton>
+                  <VscOpenPreview size={20}/>
+                </ViewButton>
+              </td>
+              <td>
+                <EditButton>
+                  <FaRegEdit size={20}/>
+                </EditButton>
+              </td>
+              <td>
+                <ExcludeButton onClick={() => handleDeleteStudent(student.id)}>
+                  <FaRegTrashCan size={20}/>
+                </ExcludeButton>
+              </td>
+
             </tr>
           ))}
         </tbody>

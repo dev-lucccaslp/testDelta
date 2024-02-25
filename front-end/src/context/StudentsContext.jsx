@@ -1,45 +1,44 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import { useStorage } from "../hooks/useStorage";
+import { userStorage } from "../hooks/useStorage";
 import { newApi } from "../services/newApi";
 
 const StudentsContext = createContext(undefined)
 
 export const ListStudentsProvider = ({ children }) => {
+  const { userState, ...rest  } = userStorage();
 
   const [studentList, setStudentList] = useState([])
-  const { getItem } = useStorage();
-  const data = getItem('data')
-  
-  const getStudents = async() => {
+
+  const getStudents = async () => {
     try {
-      const response = await newApi.get(`/studentsall/${data.user_id}`, {
+      const response = await newApi.get(`/studentsall/${userState.user_id}`, {
         headers: {
-          Authorization: `${data.type} ${ data.token}`
+          Authorization: `${userState.type} ${userState.token}`
         }
       });
-      
+
       setStudentList(response.data.data)
-      console.log('estado:', dadsStudents)
+      console.log('estado:', response.data.data)
     } catch (error) {
       console.log(error.message)
     }
   };
 
   useEffect(() => {
-    getStudents()
-  }, [])
+    getStudents();
+  }, [userState]);
 
   return (
-    <StudentsContext.Provider value={{ studentList, setStudentList }}>
-      { children }
+    <StudentsContext.Provider value={{ studentList, setStudentList, ...rest, userState  }}>
+      {children}
     </StudentsContext.Provider>
   )
-} 
+}
 
 export const useStudents = () => {
   const context = useContext(StudentsContext)
 
-  if(!context) {
+  if (!context) {
     throw new Error('useStudents error!')
   }
 

@@ -1,30 +1,36 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { MenuContainer } from "./style";
-import { useStorage } from "../../hooks/useStorage";
 import { IoMdExit } from "react-icons/io";
 
+import  Logo from '../../assets/logo.png'
+import { useStudents } from "../../context/StudentsContext";
+
 const Menu = () => {
-  const { getItem, clear } = useStorage();
-  const data = getItem('data')
+
+  const { setStudentList, userState, clear } = useStudents();
   
   const navigate = useNavigate();
 
-  const singOut = () => {
-    navigate('/')
-    clear('data')
+  const logOut = () => {
+    clear();
+    setStudentList([]);
+    navigate('/', { replace: true });
   }
 
   return (
     <MenuContainer>
       <header>
+        <img
+        src={Logo}
+        />
         <ul>
           <li>Usuário:</li>
-          <li>{data.email}</li>
+          <li>{userState.email}</li>
         </ul>
       </header>
       <footer>
-        <a onClick={singOut}>Sair <IoMdExit size={18}/> </a>
+        <a onClick={logOut}>Sair <IoMdExit size={18}/> </a>
       </footer>
     </MenuContainer>
   );

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { ModalContainer, Overlay, CloseButton, StudentForm, Input, SubmitButton } from './style';
@@ -20,7 +21,7 @@ export const ModalAddStudent = ({ isOpen, onClose }) => {
  
   console.log(Estados)
 
-  const handleRegisterStudentSubmit = async (event) => {
+  const ModalEditAndView = async (event) => {
     event.preventDefault();
 
     const name = event.target[0].value;

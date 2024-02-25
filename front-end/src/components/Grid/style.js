@@ -23,7 +23,7 @@ export const Table = styled.table`
   td {
     padding-top: 10px;
     color: ${(props) => props.theme['gray-50']};
-    
+    text-align: left;
     &:hover {
      
     }
@@ -33,14 +33,12 @@ export const Table = styled.table`
 
 export const EditButton = styled.a`
   color: ${(props) => props.theme['gray-50']};
-
   border: none;
-  padding: 3px 10px;
-  border-radius: 5px;
+
   cursor: pointer;
 
   &:hover {
-    color: #b58c46;
+    color: ${(props) => props.theme['gray-100']};
   }
 
 `;
@@ -48,13 +46,18 @@ export const EditButton = styled.a`
 export const ExcludeButton = styled.a`
   color:${(props) => props.theme['red-500']};
   border: none;
-  padding: 2px;
-
-  border-radius: 5px;
-  margin-left: 5px;
   cursor: pointer;
 
   &:hover {
     color: ${(props) => props.theme['red-700']};;
+  }
+`;
+
+export const ViewButton = styled.a`
+  color:${(props) => props.theme['green-500']};
+  cursor: pointer;
+
+  &:hover {
+    color: ${(props) => props.theme['green-300']};;
   }
 `;

@@ -1,10 +1,10 @@
 import { Navigate, Outlet, useLocation  } from "react-router-dom";
-import { useStorage } from "../hooks/useStorage";
+import { useStudents } from '../context/StudentsContext'
 
-const AuthRoutes = () => {
-  const { getItem } = useStorage();
+const AuthRoutes = () => { 
+  const { userState: isAuthenticated } = useStudents();
   const location = useLocation();
-  const isAuthenticated = getItem('data') && getItem('data').token;
+
 
   if (isAuthenticated) {
     if (location.pathname === "/") {

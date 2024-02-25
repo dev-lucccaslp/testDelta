@@ -11,13 +11,28 @@ export const MenuContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  ul {
+  header{
+    background-color: white;
+    color: ${(props) => props.theme['gray-600']};;
+    font-weight: bold;
+    font-size: 12px;
+    padding-bottom: 12px;
+    padding-top: 12px;
+    img{
+      width: 150px;
+      height: 50px;
+      padding-left: 10px;
+    }
+
+    ul {
     list-style: none;
-    padding: 0;
+    padding-top: 10px;
   }
 
   li {
-    padding: 5px 0 3px 10px;
+   padding-left: 10px;
+  }
+
   }
 
   footer {
@@ -27,15 +42,15 @@ export const MenuContainer = styled.div`
   }
 
   a {
-    color: ${(props) => props.theme['white']};;
+    color: ${(props) => props.theme['white']};
     text-decoration: none;
     font-weight: bold;
     display: flex;
     text-align: center;
     align-items: center;
     gap: 5px;
-     
     cursor: pointer;
+    
     &:hover{
       color: ${(props) => props.theme['red-500']};
       text-decoration: underline;

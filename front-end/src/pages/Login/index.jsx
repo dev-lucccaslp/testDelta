@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { newApi } from '../../services/newApi';
 
 import {
@@ -12,23 +12,22 @@ import {
   SubmitButton
 } from './style';
 
-import { useAuthContext } from '../../context/useAuthContext';
 import { useNavigate } from 'react-router-dom';
-import { useStorage } from '../../hooks/useStorage';
 import { toast } from 'sonner';
+import { useStudents } from '../../context/StudentsContext';
 
 
 export function Login() {
+
+  const { setItem } = useStudents();
 
   const [active, setActive] = useState(true)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginStatus, setLoginStatus] = useState(null);
 
-  const { setItem } = useStorage();
 
   const navigate = useNavigate();
-  const { addData, data } = useAuthContext();
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -38,9 +37,7 @@ export function Login() {
         password: password,
       });
 
-      setItem('data', response.data)
-
-      addData(response.data);
+      setItem(response.data)
 
       setLoginStatus(false);
       navigate('/dashboard', { replace: true });
@@ -64,19 +61,15 @@ export function Login() {
       toast.error("O email e o email de confirmação devem ser iguais.");
       return;
     }
-  
     if (password !== confirmPassword) {
       toast.error("A senha e a senha de confirmação devem ser iguais.");
       return;
     }
-  
     try {
       const response = await newApi.post('/register', {
         email: email,
         password: password,
       });
-      console.log(response.data)
-
       toast.success("Usuário criado com sucesso!")
       setActive(true)
     } catch (error) {
@@ -99,16 +92,18 @@ export function Login() {
         {active ? (
 
           <LoginForm onSubmit={(event) => handleLoginSubmit(event)}>
+            <p>Email</p>
             <Input
               type="email"
-              placeholder="Email"
+              placeholder="Digite seu email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            <p>Senha</p>
             <Input
               type="password"
-              placeholder="Senha"
+              placeholder="Digite sua Senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

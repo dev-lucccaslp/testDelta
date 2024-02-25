@@ -42,6 +42,11 @@ export const LoginForm = styled.form`
 
   margin-bottom: 30px;
 
+  p {
+    padding-bottom: 2px;
+    font-weight: bold;
+  }
+
 `;
 
 export const Input = styled.input`
