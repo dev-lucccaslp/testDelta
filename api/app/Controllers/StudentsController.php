@@ -10,6 +10,8 @@ class StudentsController extends ResourceController
     protected $modelName = 'App\Models\Students';
     protected $format = 'json';
 
+    
+
     public function index($user_id = null)
     {
         $students = $this->model->where('user_id', $user_id)->findAll();
@@ -59,6 +61,9 @@ class StudentsController extends ResourceController
 
     public function getById($id = null)
     {
+        $this->load->cors();
+        log_message('info', 'Middleware CORS carregado com sucesso.');
+        
         if ($id === null) {
             return $this->fail('ID do estudante não fornecido', 400);
         }
