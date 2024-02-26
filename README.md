@@ -15,7 +15,7 @@ Banco de Dados:
 Configuração:
 -Copie o arquivo `env` para `.env` e adapte para sua aplicação, especificamente o baseURL
 e quaisquer configurações de banco de dados.
--Recomenda-se que crie um banco com nome de "TestDelta" ou altere para um nome que você deseja usar.
+-Recomenda-se que crie um banco com nome de `TestDelta` ou altere para um nome que você deseja usar.
 
 Executando o Projeto:
 -Após configurar o arquivo .env, execute o comando php spark migrate para gerar as tabelas e colunas no banco.
