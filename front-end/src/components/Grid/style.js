@@ -9,38 +9,55 @@ export const Table = styled.table`
   width: 100%;
   background-color: ${(props) => props.theme['gray-400']};
   padding: 10px;
-  box-shadow: 3px 3px  10px #000;
+  box-shadow: 3px 3px 10px #000;
   border-radius: 10px;
-  tr {
-   
-  }
 
   th {
     text-align: left;
     color: ${(props) => props.theme['gray-50']};
     padding-bottom: 5px;
   }
+
   td {
     padding-top: 10px;
     color: ${(props) => props.theme['gray-50']};
     text-align: left;
     &:hover {
-     
+      
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
   }
 `;
 
+export const FilterInput = styled.input`
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid ${(props) => props.theme['gray-100']};
+  border-radius: 10px;
+  color: #fff;
+  background-color: ${(props) => props.theme['gray-400']};
+
+  &::placeholder {
+    color: ${(props) => props.theme['gray-50']};
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
+`;
 
 export const EditButton = styled.a`
   color: ${(props) => props.theme['gray-50']};
   border: none;
-
   cursor: pointer;
 
   &:hover {
     color: ${(props) => props.theme['gray-100']};
   }
-
 `;
 
 export const ExcludeButton = styled.a`
@@ -49,7 +66,7 @@ export const ExcludeButton = styled.a`
   cursor: pointer;
 
   &:hover {
-    color: ${(props) => props.theme['red-700']};;
+    color: ${(props) => props.theme['red-700']};
   }
 `;
 
@@ -58,6 +75,6 @@ export const ViewButton = styled.a`
   cursor: pointer;
 
   &:hover {
-    color: ${(props) => props.theme['green-300']};;
+    color: ${(props) => props.theme['green-300']};
   }
 `;
