@@ -7,7 +7,7 @@ Requisitos do Servidor:
 Além disso, certifique-se de que as seguintes extensões estão habilitadas no seu PHP:
 -json (habilitado por padrão - não desative);\
 -mysqlnd se você planeja usar MySQL;\
--libcurl se você planeja usar a biblioteca HTTP\CURLRequest;\
+-libcurl se você planeja usar a biblioteca HTTP\CURLRequest;
 
 Banco de Dados:
 -Instale o MySQL.
