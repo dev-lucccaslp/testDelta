@@ -7,32 +7,33 @@ export const MenuContainer = styled.div`
   box-shadow: 1px 0px 12px #000;
   border-radius: 0 0 20px 0;
 
-  display:  flex;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  header{
+  header {
     background-color: white;
-    color: ${(props) => props.theme['gray-600']};;
+    color: ${(props) => props.theme['gray-600']};
     font-weight: bold;
     font-size: 12px;
     padding-bottom: 12px;
+    width: 100%;
     padding-top: 12px;
-    img{
+    img {
       width: 150px;
       height: 50px;
       padding-left: 10px;
     }
 
     ul {
-    list-style: none;
-    padding-top: 10px;
-  }
+      list-style: none;
+      padding-top: 10px;
+      padding-left: 0; 
+    }
 
-  li {
-   padding-left: 10px;
-  }
-
+    li {
+      padding-left: 10px;
+    }
   }
 
   footer {
@@ -50,10 +51,17 @@ export const MenuContainer = styled.div`
     align-items: center;
     gap: 5px;
     cursor: pointer;
-    
-    &:hover{
+
+    &:hover {
       color: ${(props) => props.theme['red-500']};
       text-decoration: underline;
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%; 
+    border-radius: 0; 
+    box-shadow: none; 
+
   }
 `;

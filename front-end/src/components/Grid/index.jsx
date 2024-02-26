@@ -57,7 +57,7 @@ const Grid = ({ openModal }) => {
     <GridContainer>
       <FilterInput
         type="text"
-        placeholder="Filtrar pelo nome"
+        placeholder="Filtre pelo nome"
         value={filterName}
         onChange={(e) => setFilterName(e.target.value)}
       />
