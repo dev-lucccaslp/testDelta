@@ -64,8 +64,8 @@ export const ModalAddStudent = ({ isOpen, onClose }) => {
             <Input type="email" placeholder="Email" required />
             <select value={selectedState} onChange={handleStateChange} required>
               <option value="">Selecione o estado</option>
-              {Estados.map((estado) => (
-                <option key={estado.sigla} value={estado.sigla}>
+              {Estados.map((estado, index) => (
+                <option key={index} value={estado.sigla}>
                   {estado.sigla} 
                 </option>
               ))}

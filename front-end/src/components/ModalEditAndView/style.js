@@ -32,6 +32,7 @@ export const ModalContainer = styled.div`
 export const CloseButton = styled.button`
   border: none;
   cursor: pointer;
+  background-color: #FFF;
   
   &:hover {
     color: red;
@@ -51,6 +52,10 @@ export const StudentForm = styled.form`
   border: 1px solid #ccc;
   color: ${(props) => props.theme['gray-500']};
   font-size: 16px;
+  &:disabled {
+    cursor: not-allowed;
+    color: ${(props) => props.theme['gray-200']};
+  }
   }
 
   option {
@@ -63,6 +68,12 @@ export const Input = styled.input`
   padding: 8px;
   border-radius: 4px;
   border: 1px solid #ccc;
+
+  &:disabled {
+    cursor: not-allowed;
+    color: #ccc
+  }
+
 `;
 
 export const SubmitButton = styled.button`

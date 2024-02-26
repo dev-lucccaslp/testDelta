@@ -15,10 +15,8 @@ import { newApi } from "../../services/newApi";
 import { useStudents } from "../../context/StudentsContext"
 import { toast } from "sonner";
 
-const Grid = () => {
+const Grid = ({ openModal }) => {
   const { studentList, setStudentList, userState: userDads } = useStudents();
-
-  console.log('contex:', studentList)
 
   const handleDeleteStudent = async (id) => {
     try {
@@ -67,12 +65,12 @@ const Grid = () => {
               <td>{student.state}</td>
               <td>{student.email}</td>
               <td>
-                <ViewButton>
+                <ViewButton onClick={() => openModal(student.id, 'view', student)}>
                   <VscOpenPreview size={20}/>
                 </ViewButton>
               </td>
               <td>
-                <EditButton>
+                <EditButton onClick={() => openModal(student.id, 'edit', student)}>
                   <FaRegEdit size={20}/>
                 </EditButton>
               </td>

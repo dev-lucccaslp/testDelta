@@ -32,6 +32,7 @@ export const ModalContainer = styled.div`
 export const CloseButton = styled.button`
   border: none;
   cursor: pointer;
+  background-color: #FFF;
   
   &:hover {
     color: red;

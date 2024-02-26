@@ -16,9 +16,7 @@ export const ListStudentsProvider = ({ children }) => {
           Authorization: `${userState.type} ${userState.token}`
         }
       });
-
       setStudentList(response.data.data)
-      console.log('estado:', response.data.data)
     } catch (error) {
       console.log(error.message)
     }
